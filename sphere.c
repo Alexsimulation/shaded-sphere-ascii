@@ -30,9 +30,9 @@ float p[3]={o[0]+d*u[0],o
   *(p[2]-c[2]);delta=A*A-(B-r*r);I=0.4;if(delta>0){
     I*=(1-sqrt(delta)/(2*r))*(1-sqrt(delta)/(2*r));}}else{I=0;}}S=asc[(int)
       (I*asclen)];return S;}
-        void render(){char c[80];for(int k=0;k<
+        void render(){char c[81];for(int k=0;k<
          100000;++k){system("cls");for(int i=0;i<40;++i){for(int j=0;
              j<40;++j){c[2*j]=shade(i,
                 j,(float)k);c[2*j+1]=c[2*j];}c[
-                     80]=' ';printf("%s\n",c);}}}int main(){
+                     80]='\0';printf("%s\n",c);}}}int main(){
                             render();return 0;}
