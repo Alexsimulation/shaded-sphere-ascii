@@ -17,7 +17,7 @@ The above variable is a three dimensional vector that stores the `{x,y,z}` posit
 ```C
 oc[0] += sin(k/10);
 ```
-After that, we define a variableposition vector `o` to store the end position of the camera direction at the pixel `i,j`.
+After that, we define a variable position vector `o` to store the end position of the camera direction at the pixel `i,j`.
 ```C
 float o[3] = {0, ((float)j)/39, 1-((float)i)/39}; 
 ```
