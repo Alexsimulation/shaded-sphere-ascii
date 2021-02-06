@@ -1,4 +1,5 @@
 // Commented version of shaded sphere
+// Some lines may be in a different order than the spherical shaped version, but it's mostly the same.
 // by https://github.com/Alexsimulation
 #include <stdio.h>
 #include <math.h>
@@ -6,24 +7,22 @@
 
 char shade( int i, int j, float k ) {
     
-    // Sphere and camera parameters
-    float o[3] = {0, ((float)j)/39, 1-((float)i)/39}; 
-    const float c[3] = {1, 0.5, 0.5};
+    // Camera parameters
 	float oc[3] = {-1.2, 0.5, 0.7};
 	oc[0] += sin(k/10);
+    float o[3] = {0, ((float)j)/39, 1-((float)i)/39}; 
     float u[3] = {o[0]-oc[0], o[1]-oc[1], o[2]-oc[2]};
 	float un = 1/sqrt(u[0]*u[0] + u[1]*u[1] + u[2]*u[2]);
 	u[0] *= un;
 	u[1] *= un;
 	u[2] *= un;
+	
+	// Sphere parameters
+	const float c[3] = {1, 0.5, 0.5};
     const float r = 0.6;
 	
 	// Light source inverse direction
 	float l[3] = {cos(k/10)*(float)sin(1.1), sin(k/10)*(float)sin(1.1), cos(1.1)};
-	
-	// ASCII shading characters
-	const char asc[] = {' ','.',',',':',';','<','i','I','E','X','%','@'};
-	const int asclen = 12;
     
     // Sphere-ray interception
     float A = u[0]*(o[0]-c[0]) + u[1]*(o[1]-c[1]) + u[2]*(o[2]-c[2]);
@@ -31,7 +30,6 @@ char shade( int i, int j, float k ) {
     
     float delta = A*A - (B - r*r);
     float d, I;
-	char S;
     if (delta > 0) {
 		// Sphere intersection exists
         d = -1*sqrt(delta) - A;
@@ -45,9 +43,6 @@ char shade( int i, int j, float k ) {
 		// Dot product of normal and light vector gives illumination value (0 to 1)
 		I = (n[0]*l[0] + n[1]*l[1] + n[2]*l[2] + 1)/2;
 		I = I * I;
-		
-		// Convert illumination value to ascii character
-		S = asc[ (int)(I*asclen) ];
     } else {
 		// No sphere intersect: do a floor intersect
 		d = -1*o[2]/u[2]; // Distance where floor intercept
@@ -72,14 +67,19 @@ char shade( int i, int j, float k ) {
 		}
 		
     }
+	// ASCII shading characters
+	const char asc[] = {' ','.',',',':',';','<','i','I','E','X','%','@'};
+	const int asclen = 12;
+	
 	// Convert illumination value to ascii character
-	S = asc[ (int)(I*asclen) ];
+	char S = asc[ (int)(I*asclen) ];
 	
     return S;
 }
 
 void render() {
-	char c[80];
+	char c[81];
+	c[80] = '\0';
 	for (int k=0; k<100000; ++k) {
 		system("cls");
 		for (int i=0; i<40; ++i) {
@@ -87,7 +87,6 @@ void render() {
 				c[2*j] = shade(i,j,(float)k);
 				c[2*j+1] = c[2*j];
 			}
-			c[80]=' ';
 			printf("%s\n",c);
 		}
 	}
