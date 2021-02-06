@@ -7,11 +7,11 @@
 
 char shade( int i, int j, float k ) {
     
-    // Camera parameters
+	// Camera parameters
 	float oc[3] = {-1.2, 0.5, 0.7};
 	oc[0] += sin(k/10);
-    float o[3] = {0, ((float)j)/39, 1-((float)i)/39}; 
-    float u[3] = {o[0]-oc[0], o[1]-oc[1], o[2]-oc[2]};
+	float o[3] = {0, ((float)j)/39, 1-((float)i)/39}; 
+	float u[3] = {o[0]-oc[0], o[1]-oc[1], o[2]-oc[2]};
 	float un = 1/sqrt(u[0]*u[0] + u[1]*u[1] + u[2]*u[2]);
 	u[0] *= un;
 	u[1] *= un;
@@ -19,20 +19,20 @@ char shade( int i, int j, float k ) {
 	
 	// Sphere parameters
 	const float c[3] = {1, 0.5, 0.5};
-    const float r = 0.6;
+	const float r = 0.6;
 	
 	// Light source inverse direction
 	float l[3] = {cos(k/10)*(float)sin(1.1), sin(k/10)*(float)sin(1.1), cos(1.1)};
     
-    // Sphere-ray interception
-    float A = u[0]*(o[0]-c[0]) + u[1]*(o[1]-c[1]) + u[2]*(o[2]-c[2]);
-    float B = (o[0]-c[0])*(o[0]-c[0]) + (o[1]-c[1])*(o[1]-c[1]) + (o[2]-c[2])*(o[2]-c[2]);
+	// Sphere-ray interception
+	float A = u[0]*(o[0]-c[0]) + u[1]*(o[1]-c[1]) + u[2]*(o[2]-c[2]);
+	float B = (o[0]-c[0])*(o[0]-c[0]) + (o[1]-c[1])*(o[1]-c[1]) + (o[2]-c[2])*(o[2]-c[2]);
     
-    float delta = A*A - (B - r*r);
-    float d, I;
-    if (delta > 0) {
+    	float delta = A*A - (B - r*r);
+    	float d, I;
+    	if (delta > 0) {
 		// Sphere intersection exists
-        d = -1*sqrt(delta) - A;
+        	d = -1*sqrt(delta) - A;
 		
 		// Point on sphere
 		float p[3] = {o[0] + d*u[0], o[1] + d*u[1], o[2] + d*u[2]};
@@ -43,7 +43,7 @@ char shade( int i, int j, float k ) {
 		// Dot product of normal and light vector gives illumination value (0 to 1)
 		I = (n[0]*l[0] + n[1]*l[1] + n[2]*l[2] + 1)/2;
 		I = I * I;
-    } else {
+    	} else {
 		// No sphere intersect: do a floor intersect
 		d = -1*o[2]/u[2]; // Distance where floor intercept
 		
@@ -66,7 +66,7 @@ char shade( int i, int j, float k ) {
 			I = 0;
 		}
 		
-    }
+    	}
 	// ASCII shading characters
 	const char asc[] = {' ','.',',',':',';','<','i','I','E','X','%','@'};
 	const int asclen = 12;
@@ -74,7 +74,7 @@ char shade( int i, int j, float k ) {
 	// Convert illumination value to ascii character
 	char S = asc[ (int)(I*asclen) ];
 	
-    return S;
+    	return S;
 }
 
 void render() {
