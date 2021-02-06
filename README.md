@@ -1,5 +1,7 @@
 # shaded-sphere-ascii
 
+![result](sphere_gif.gif)
+
 ## What?
 Shaded sphere shaped C code that generates a shaded sphere.
 
